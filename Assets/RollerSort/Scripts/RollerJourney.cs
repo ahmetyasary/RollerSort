@@ -11,7 +11,7 @@ namespace RollerSort {
   string LifeTime(){long sec=life.Remaining(Now);return life.Count==5?GameLanguage.Text("Max"):$"{sec/60:00}:{sec%60:00}";}
   void LifeTick(){if(life==null||Time.unscaledTime<nextLifeRefresh)return;nextLifeRefresh=Time.unscaledTime+1;int before=life.Count;life.Refresh(Now);if(before!=life.Count)SaveLives();if(lifeCounter)lifeCounter.text=life.Count+"  "+LifeTime();if(refillCountdown)refillCountdown.text=GameLanguage.Text("Yeni can: "+LifeTime()+"\nCanlar 30 dakikada bir yenilenir.");}
   void LifeHud(Transform parent){var h=Picture(parent,"hud",new Vector2(-16,107),new Vector2(141,43));Picture(h,"heart",new Vector2(-49,21),new Vector2(28,30));lifeCounter=Label(h,life.Count+"  "+LifeTime(),new Vector2(12,21),21,bounds:new Vector2(112,40));}
-  void PlayFromJourney(){life.Refresh(Now);if(life.Count==0){var p=Modal("No Lives",300);refillCountdown=Label(p,"Yeni can: "+LifeTime()+"\nCanlar 30 dakikada bir yenilenir.",new Vector2(0,132),22,bounds:new Vector2(330,100));Button(p,"Journey",new Vector2(0,235),new Vector2(245,60),colors[2],Journey);return;}journey=false;launchedFromJourney=true;BuildLevel();}
+  void PlayFromJourney(){life.Refresh(Now);if(life.Count==0){var p=Modal("No Lives",300);refillCountdown=Label(p,"Yeni can: "+LifeTime()+"\nCanlar 30 dakikada bir yenilenir.",new Vector2(0,132),22,bounds:new Vector2(330,100));Button(p,"Journey",new Vector2(0,235),new Vector2(245,60),colors[2],Journey);return;}LogoTransition(()=>{journey=false;launchedFromJourney=true;BuildLevel();});}
   bool journeyCompleted;
   void Journey(){
    if(!diagnosticsActive){PlayerPrefs.SetInt("visitedJourney",1);PlayerPrefs.Save();}

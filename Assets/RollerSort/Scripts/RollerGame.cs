@@ -121,7 +121,7 @@ public sealed partial class RollerGame : MonoBehaviour {
   var lowerBoard=Picture(game,"lower-board",new Vector2(0,903),new Vector2(450,320));if(hardStage)lowerBoard.GetComponent<Image>().color=new Color(.38f,.41f,.47f,1);
   var belt=Picture(game,BeltTrack.Expanded?"belt-expanded":"belt",new Vector2(0,BeltY),new Vector2(BeltTrack.Width,69));if(hardStage)belt.GetComponent<Image>().color=new Color(.56f,.59f,.65f,1);
   var socketLayer=Panel(game,"Moving sockets",Vector2.zero,Vector2.zero,Color.clear);IsolateCanvas(socketLayer);
-  for(int i=0;i<BeltTrack.SlotCount;i++){Vector2 p=BeltPoint((float)i/BeltTrack.SlotCount);var socket=Picture(socketLayer,hardStage?"belt-socket-reference":"belt-socket",p,new Vector2(19,19));beltSockets.Add(socket);}
+  for(int i=0;i<BeltTrack.SlotCount;i++){Vector2 p=BeltPoint((float)i/BeltTrack.SlotCount);var socket=hardStage?Picture(socketLayer,"belt-socket-reference",p,new Vector2(19,19)):Picture(socketLayer,"belt-socket",p,new Vector2(19,25));beltSockets.Add(socket);}
   sequence.Clear();for(int row=0;row<rows;row++)for(int col=0;col<cols;col++){var box=boxes.Find(b=>b.row==row&&b.col==col);if(box!=null)for(int k=0;k<3;k++)sequence.Add(box.color);}
   foreach(var portal in portals)foreach(int color in portal.next)for(int k=0;k<3;k++)sequence.Add(color);
   int[][] introQueues={new[]{2,1,1,0,0},new[]{1,1,0,0,0},new[]{2,2,1,0},new[]{2,2,2,1}};
@@ -199,7 +199,8 @@ public sealed partial class RollerGame : MonoBehaviour {
   LifeTick();AudioTick();DiagnosticsTick();
   if(paused||!game)return;
   physicsAccumulator+=Mathf.Min(Time.deltaTime,.1f);while(physicsAccumulator>=1f/120f){clock+=1f/120f;StepMarbles(1f/120f);physicsAccumulator-=1f/120f;}
-  for(int i=0;i<beltSockets.Count;i++){var r=beltSockets[i];Vector2 p=BeltPoint((clock-1f/120f+physicsAccumulator)*ConveyorTurnsPerSecond+(float)i/BeltTrack.SlotCount);r.anchoredPosition=new Vector2(p.x,-p.y);}
+  // Pockets follow the stadium and turn with it, staying perpendicular to the track.
+  for(int i=0;i<beltSockets.Count;i++){var r=beltSockets[i];float phase=(clock-1f/120f+physicsAccumulator)*ConveyorTurnsPerSecond+(float)i/BeltTrack.SlotCount;Vector2 p=BeltPoint(phase),ahead=BeltPoint(phase+.002f)-p;r.anchoredPosition=new Vector2(p.x,-p.y);r.localRotation=Quaternion.Euler(0,0,Mathf.Atan2(-ahead.y,ahead.x)*Mathf.Rad2Deg);}
   float alpha=physicsAccumulator*120;
   foreach(var b in balls){if(b.age<0){if(b.view.gameObject.activeSelf)b.view.gameObject.SetActive(false);continue;}if(!b.view.gameObject.activeSelf)b.view.gameObject.SetActive(true);Vector2 render=Vector2.Lerp(b.previous,b.position,alpha);b.view.anchoredPosition=new Vector2(render.x,-render.y);b.view.localScale=Vector3.one*(b.stage==2?Mathf.Lerp(1,.78f,Mathf.Clamp01(b.age/.22f)):b.stage==0?b.radius/MarbleRadius:1);float altitude=b.stage==0?Mathf.Clamp01((737-b.position.y)/140):0;var visual=b.visual;visual.shadow.localScale=Vector3.one*Mathf.Lerp(1,.65f,altitude);visual.shadowImage.color=new Color(1,1,1,Mathf.Lerp(.65f,.22f,altitude));float stretch=b.stage==0?Mathf.Min(.08f,Mathf.Abs(b.velocity.y)/5000):0;visual.body.localScale=new Vector3(1-stretch,1+stretch,1);}
 
