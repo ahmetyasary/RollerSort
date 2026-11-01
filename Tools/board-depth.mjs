@@ -14,6 +14,15 @@ export const lighten={'#4b689c':'#7f9ccc','#78468f':'#a679bd','#4c699d':'#7f9ccc
 // lowered by `depth`. It is widest along top edges and tapers away at the corners.
 export const innerFace=(d,id,face,fill,depth,extra='')=>`<clipPath id="${id}"><path d="${d}"/></clipPath><g ${extra}><path d="${d}" fill="${face}"/><g clip-path="url(#${id})"><path d="${d}" transform="translate(0,${depth})" fill="${fill}"/></g></g>`;
 export const faceOf={'#4b689c':'#45608f','#78468f':'#6a3d80'};
-// Play-field outline shared by every normal board. The funnel ramps end in rounded
-// noses at the throat; the throat runs on below the art so it meets the belt unbroken.
-export const funnelOuter='M80 276 H370 Q425 276 426 330 L434 651 Q436 685 392 696 L266 729 C254 732 253 735 253 739 L253 800 H197 L197 739 C197 735 196 732 184 729 L58 696 Q14 685 16 651 L24 330 Q25 276 80 276 Z';
+// Play-field outline shared by every normal board. The ramps end in round noses
+// at a throat one sphere wide, and the floor runs on below the art to meet the belt unbroken.
+export const funnelOuter='M80 276 H370 Q425 276 426 330 L434 651 Q436 685 392 696 L246.5 728 A7 7 0 0 0 239.5 735 L239.5 800 H210.5 L210.5 735 A7 7 0 0 0 203.5 728 L58 696 Q14 685 16 651 L24 330 Q25 276 80 276 Z';
+// The wall wraps each nose and returns outward under the ramp, leaving the throat
+// itself without a stroke, so each ramp reads as a solid teardrop-tipped slab.
+export const funnelOutline='M361 742 H246.5 A7 7 0 0 1 239.5 735 A7 7 0 0 1 246.5 728 L392 696 Q436 685 434 651 L426 330 Q425 276 370 276 H80 Q25 276 24 330 L16 651 Q14 685 58 696 L203.5 728 A7 7 0 0 1 210.5 735 A7 7 0 0 1 203.5 742 H89';
+// Front faces of the ramp slabs, between each underside and the belt rim.
+export const funnelFaces=fill=>`<path d="M239.5 735 A7 7 0 0 0 246.5 742 H361 V757 H239.5 Z M210.5 735 A7 7 0 0 1 203.5 742 H89 V757 H210.5 Z" fill="${fill}"/>`;
+// Ramp fronts share the housing wall colour so they merge into its rim.
+export const rampFace={'#4b689c':'#4c699d','#78468f':'#78468f'};
+// Inner face running along every edge of a closed shape, so its walls read as thick.
+export const innerBand=(d,id,color,width)=>`<clipPath id="${id}"><path d="${d}"/></clipPath><path d="${d}" fill="none" stroke="${color}" stroke-width="${width*2}" stroke-linejoin="round" clip-path="url(#${id})"/>`;

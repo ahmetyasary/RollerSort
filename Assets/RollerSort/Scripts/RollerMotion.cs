@@ -2,11 +2,11 @@ using UnityEngine;
 namespace RollerSort {
  public sealed partial class RollerGame {
   const float MarbleRadius=BeltTrack.PaintedDiameter*.5f;
-  const float Gravity=1200f,GateY=738f,ThroatHalfWidth=28f;
+  const float Gravity=1200f,GateY=738f,ThroatHalfWidth=14.5f;
   const float TransferDuration=.155f;
   float ConveyorTurnsPerSecond=>-166f/BeltTrack.Length;
-  static readonly Vector2 LeftRampTop=new(-205,680),LeftRampEnd=new(-28,737);
-  static readonly Vector2 RightRampTop=new(205,680),RightRampEnd=new(28,737);
+  static readonly Vector2 LeftRampTop=new(-205,680),LeftRampEnd=new(-14.5f,737);
+  static readonly Vector2 RightRampTop=new(205,680),RightRampEnd=new(14.5f,737);
 
   bool BeltCannotProgress(){
    int circulating=0;
@@ -178,6 +178,17 @@ namespace RollerSort {
    for(int i=0;i<count;i++){var b=orderedBelt[i];b.phase=BeltTrack.FromPackingPhase(phase+orderedDistance[i]/BeltTrack.PackingLength);b.position=BeltPoint(b.phase);orderedBelt[i]=null;}
   }
 
+  // The throat admits one sphere at a time. Two spheres resting on opposite noses
+  // can lock into an arch, so the one nearest the outlet is eased toward the centre;
+  // the contact solve then lifts its neighbour aside.
+  void CentreThroatBall(){
+   Ball nearest=null;
+   foreach(var ball in balls){
+    if(ball.stage!=0||ball.age<0||ball.position.y<GateY-18||Mathf.Abs(ball.position.x)>ThroatHalfWidth+ball.radius)continue;
+    if(nearest==null||ball.position.y-Mathf.Abs(ball.position.x)>nearest.position.y-Mathf.Abs(nearest.position.x))nearest=ball;
+   }
+   if(nearest!=null)nearest.position.x=Mathf.MoveTowards(nearest.position.x,0,1.2f);
+  }
   void TryFeedBelt(){
    int transported=0;foreach(var ball in balls){if(ball.stage==3)return;if(ball.stage==1)transported++;}
    if(transported>=BeltTrack.SlotCount)return;
@@ -186,7 +197,7 @@ namespace RollerSort {
     if(ball.stage!=0||ball.age<0||ball.position.y<GateY-2.5f||Mathf.Abs(ball.position.x)>ThroatHalfWidth-ball.radius+1)continue;
     if(candidate==null||ball.position.y>candidate.position.y)candidate=ball;
    }
-   if(candidate==null)return;
+   if(candidate==null){CentreThroatBall();return;}
    float entryPhase=candidate.position.x/BeltTrack.Length;
    // One continuous cubic arc, with its exit tangent matching conveyor velocity.
    candidate.stage=3;candidate.age=0;candidate.phase=Mathf.Repeat(entryPhase,1);candidate.transferPhaseStart=entryPhase;candidate.seatStart=candidate.position;
