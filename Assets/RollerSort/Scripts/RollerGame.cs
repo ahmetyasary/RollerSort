@@ -100,10 +100,12 @@ public sealed partial class RollerGame : MonoBehaviour {
   var gear=Button(game,"",new Vector2(-190,107),new Vector2(50,51),purple,Settings);Picture(gear,"gear",new Vector2(0,24),new Vector2(31,31));
   levelText=Label(Picture(game,"hud",new Vector2(-6,107),new Vector2(119,43)),"Level "+level,new Vector2(0,21),23);
   var currency=Picture(game,"hud",new Vector2(142,107),new Vector2(154,43));Picture(currency,"coin",new Vector2(-57,21),new Vector2(27,29));
-  coinText=Label(currency,FormatCoins(),new Vector2(-13,21),29,bounds:new Vector2(83,43));
+  coinText=Label(currency,FormatCoins(),new Vector2(-7,21),24,bounds:new Vector2(70,40));
   var add=Button(game,"",new Vector2(194,107),new Vector2(45,47),colors[0],Shop);Picture(add,"plus",new Vector2(0,22),new Vector2(31,31));
   DrawBoosters();
   var layout=LevelLayouts.Rows(level);int cols=layout[0].Length,rows=layout.Length,colorCount=Mathf.Min(3+(level-1)/2,7);
+  // The housing goes under the board so the funnel throat runs unbroken down to the belt.
+  var lowerBoard=Picture(game,"lower-board",new Vector2(0,903),new Vector2(450,320));if(hardStage)lowerBoard.GetComponent<Image>().color=new Color(.38f,.41f,.47f,1);
   var board=Picture(game,IsHardJourneyLevel(level)?"board-hard-reference":level<=4?"board-"+cols:"level-board-"+Mathf.Min(level,19),new Vector2(0,395),new Vector2(450,790));
   if(hardStage)board.GetComponent<Image>().color=IsHardJourneyLevel(level)?Color.white:new Color(.43f,.45f,.47f,1);else if(level>=12)board.GetComponent<Image>().color=Color.white;
   if(hardStage){var badge=Panel(game,"Difficulty badge",new Vector2(0,148),new Vector2(128,32),new Color32(212,72,75,255));Picture(badge,"skull",new Vector2(-42,16),new Vector2(23,23));Label(badge,IsVeryHardJourneyLevel(level)?"Very Hard":"Hard",new Vector2(12,16),17,bounds:new Vector2(92,28));}
@@ -118,7 +120,6 @@ public sealed partial class RollerGame : MonoBehaviour {
    CreateSource(LevelLayouts.SourceColor(level,row,col,sequence[row*cols+col]),row,col);
   }
   RefreshSourceAccess(false);
-  var lowerBoard=Picture(game,"lower-board",new Vector2(0,903),new Vector2(450,320));if(hardStage)lowerBoard.GetComponent<Image>().color=new Color(.38f,.41f,.47f,1);
   var belt=Picture(game,BeltTrack.Expanded?"belt-expanded":"belt",new Vector2(0,BeltY),new Vector2(BeltTrack.Width,69));if(hardStage)belt.GetComponent<Image>().color=new Color(.56f,.59f,.65f,1);
   var socketLayer=Panel(game,"Moving sockets",Vector2.zero,Vector2.zero,Color.clear);IsolateCanvas(socketLayer);
   for(int i=0;i<BeltTrack.SlotCount;i++){Vector2 p=BeltPoint((float)i/BeltTrack.SlotCount);var socket=hardStage?Picture(socketLayer,"belt-socket-reference",p,new Vector2(19,19)):Picture(socketLayer,"belt-socket",p,new Vector2(19,25));beltSockets.Add(socket);}
@@ -288,7 +289,7 @@ public sealed partial class RollerGame : MonoBehaviour {
   Picture(overlay,"awning",new Vector2(0,120),new Vector2(450,240));
   if(journey)ProfileButton(overlay,new Vector2(-190,107));else{var gear=Button(overlay,"",new Vector2(-190,107),new Vector2(50,51),purple,Settings);Picture(gear,"gear",new Vector2(0,24),new Vector2(31,31));}
   LifeHud(overlay);
-  var currency=Picture(overlay,"hud",new Vector2(142,107),new Vector2(154,43));Picture(currency,"coin",new Vector2(-57,21),new Vector2(27,29));Label(currency,FormatCoins(),new Vector2(-13,21),29,bounds:new Vector2(83,43));var add=Button(overlay,"",new Vector2(194,107),new Vector2(45,47),colors[0],()=>ShopInfo("Altın"));Picture(add,"plus",new Vector2(0,22),new Vector2(31,31));
+  var currency=Picture(overlay,"hud",new Vector2(142,107),new Vector2(154,43));Picture(currency,"coin",new Vector2(-57,21),new Vector2(27,29));Label(currency,FormatCoins(),new Vector2(-7,21),24,bounds:new Vector2(70,40));var add=Button(overlay,"",new Vector2(194,107),new Vector2(45,47),colors[0],()=>ShopInfo("Altın"));Picture(add,"plus",new Vector2(0,22),new Vector2(31,31));
   // Clip the scrolling product list independently of the header and close button.
   var viewport=Panel(overlay,"Products viewport",new Vector2(0,581),new Vector2(420,630),Color.clear);viewport.gameObject.AddComponent<RectMask2D>();viewport.GetComponent<Image>().raycastTarget=true;
   var content=Panel(viewport,"Products",Vector2.zero,new Vector2(420,1480),Color.clear);content.pivot=new Vector2(.5f,1);content.anchoredPosition=Vector2.zero;
@@ -331,7 +332,7 @@ public sealed partial class RollerGame : MonoBehaviour {
   string day=DateTime.Now.ToString("yyyy-MM-dd");if(PlayerPrefs.GetString("questDay","")!=day){PlayerPrefs.SetString("questDay",day);PlayerPrefs.SetInt("questCount",0);PlayerPrefs.SetInt("questClaimed",0);}PlayerPrefs.SetInt("questCount",PlayerPrefs.GetInt("questCount",0)+1);
   pendingReward=GameBalance.LevelReward(level);coins+=pendingReward;PlayerPrefs.SetInt("coins",coins);PlayerPrefs.SetInt("level",level+1);PlayerPrefs.Save();
   }else {pendingReward=GameBalance.LevelReward(level);coins+=pendingReward;}
-  victoryTransition=false;coinText.text=(coins-pendingReward).ToString("N0",System.Globalization.CultureInfo.InvariantCulture);
+  victoryTransition=false;coinText.text=(coins-pendingReward).ToString(System.Globalization.CultureInfo.InvariantCulture);
   var p=Modal("Level Completed!",550,50);Panel(p,"Gift inset",new Vector2(0,213),new Vector2(320,280),new Color32(126,93,205,255));string milestone=level==5?"magnet":level==7?"shuffle":level==9?"tunnel":level==10?"gumball":level==14?"belt-expanded":null;var gift=Picture(p,milestone??"gift-v2",new Vector2(0,190),new Vector2(180,190));StartCoroutine(RewardFloat(gift));if(milestone!=null)Label(p,level==9?"Tunnels Unlocked!":level==14?"Extra Space!":"New Booster · Level "+(level+1),new Vector2(0,280),21,colors[0]);
   var track=Picture(p,"progress-track",new Vector2(0,311),new Vector2(228,45));float progress=((level-1)%5+1)/5f,previous=Mathf.Max(0,progress-.2f);var fill=Picture(track,"progress-fill",new Vector2(-99+99*previous,22),new Vector2(198*previous,26));var progressText=Label(p,Mathf.RoundToInt(previous*100)+"%",new Vector2(0,311),30);StartCoroutine(AnimateVictoryProgress(fill,progressText,previous,progress));
   var reward=Picture(p,"coin",new Vector2(-38,397),new Vector2(46,50));Label(p,"+"+pendingReward,new Vector2(31,397),43,bounds:new Vector2(120,54),localize:false);Button(p,"Continue",new Vector2(0,485),new Vector2(235,80),colors[2],()=>BeginVictoryContinue(reward),36);

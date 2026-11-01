@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace RollerSort {
  public sealed partial class RollerGame {
-  string FormatCoins()=>coins.ToString("N0",System.Globalization.CultureInfo.InvariantCulture);
+  string FormatCoins()=>coins.ToString(System.Globalization.CultureInfo.InvariantCulture);
   void ProfileButton(Transform parent,Vector2 point){var b=Button(parent,"",point,new Vector2(50,51),purple,EditProfile);Picture(b,"avatar-"+PlayerPrefs.GetInt("avatar",5),new Vector2(0,25),new Vector2(42,44));}
 
   void EditProfile(){

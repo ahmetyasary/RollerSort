@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 import {writeFile} from 'node:fs/promises';
-import {depthDefs,dropShadow,wall as depthWall,innerShadow,castShadow,lighten,innerFace,faceOf} from './board-depth.mjs';
+import {depthDefs,dropShadow,wall as depthWall,innerShadow,castShadow,lighten,innerFace,faceOf,funnelOuter} from './board-depth.mjs';
 async function save(name,w,h,body){const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${body}</svg>`;await writeFile(`Assets/RollerSort/ArtSource/${name}.svg`,svg);await sharp(Buffer.from(svg)).resize(w*3,h*3).png().toFile(`Assets/Resources/Art/${name}.png`);}
 // Match the runtime stadium exactly: straight half-length 120, radius 23.
 // A recessed conveyor groove: white rim, darker track with a top inner shadow and a raised spine.
@@ -8,9 +8,9 @@ for(const w of [326,360])await save(w===326?'belt':'belt-expanded',w,69,`<defs><
 // Pill-shaped conveyor pockets in one calm tone, slightly recessed into the track.
 await save('belt-socket',32,42,`<defs>${depthDefs}</defs><rect x="3" y="4" width="26" height="34" rx="11" fill="#6b6e7a" stroke="#5d606c" stroke-width="1.5"/>${innerShadow('M14 4 H18 A11 11 0 0 1 29 15 V27 A11 11 0 0 1 18 38 H14 A11 11 0 0 1 3 27 V15 A11 11 0 0 1 14 4 Z','pocket',{color:'#3c3f4a',opacity:.4,width:6,dy:3,filter:'softer'})}`);
 // Belt housing below the funnel, with the same wall bevel and inner shadow as the boards.
-// The rim stays open under the funnel throat: the throat walls continue into the
-// housing and end in rounded lips, so marbles visibly pass through to the belt.
-{const housing='M89 4 H361 Q415 4 419 62 L435 320 H15 L31 62 Q35 4 89 4',rim='M253 27 V15 Q253 4 264 4 H361 Q415 4 419 62 L435 320 H15 L31 62 Q35 4 89 4 H186 Q197 4 197 15 V27';await save('lower-board',450,320,`<defs>${depthDefs}</defs><path d="${housing}" fill="#cdd8ef"/>${innerShadow(rim,'housing',{opacity:.2,width:26,dy:10})}<path d="M48 57 Q48 19 93 19 H178 M272 19 H357 Q402 19 402 57" fill="none" stroke="#dfe8fa" stroke-width="13" stroke-linecap="round" opacity=".7"/>${depthWall(rim,'#4c699d',lighten['#4c699d'],'none')}`);}
+// The rim stays open under the funnel throat and turns up into the throat walls,
+// so funnel and housing read as one continuous wall around the opening.
+{const housing='M89 4 H361 Q415 4 419 62 L435 320 H15 L31 62 Q35 4 89 4',rim='M253 0 Q253 4 258 4 H361 Q415 4 419 62 L435 320 H15 L31 62 Q35 4 89 4 H192 Q197 4 197 0';await save('lower-board',450,320,`<defs>${depthDefs}</defs><path d="${housing}" fill="#cdd8ef"/>${innerShadow(rim,'housing',{opacity:.2,width:26,dy:10})}<path d="M48 57 Q48 19 93 19 H178 M272 19 H357 Q402 19 402 57" fill="none" stroke="#dfe8fa" stroke-width="13" stroke-linecap="round" opacity=".7"/>${depthWall(rim,'#4c699d',lighten['#4c699d'],'none')}`);}
 function rounded(points,r=6){let d='';for(let i=0;i<points.length;i++){const p=points[i],a=points[(i+points.length-1)%points.length],b=points[(i+1)%points.length];const la=Math.hypot(a[0]-p[0],a[1]-p[1]),lb=Math.hypot(b[0]-p[0],b[1]-p[1]);const t=Math.min(r,la/2,lb/2);const u=[p[0]+(a[0]-p[0])*t/la,p[1]+(a[1]-p[1])*t/la],v=[p[0]+(b[0]-p[0])*t/lb,p[1]+(b[1]-p[1])*t/lb];d+=`${i?'L':'M'}${u} Q${p} ${v} `;}return d+'Z';}
 for(const cols of [2,3,4]){
  const heights=cols===4?[4,4,2,2]:Array(cols).fill(3),step=53,start=225-cols*step/2-7,bottom=647;
@@ -20,6 +20,6 @@ for(const cols of [2,3,4]){
  points.push([start,644]);let wall=rounded(points);
  // Preserve the original smooth upper bowl rather than approximating its large curves.
  wall='M26 638 L31 332 Q31 289 81 289 H369 Q418 289 419 332 L426 638 '+wall.slice(wall.indexOf('Q426,644')).replace(/Z$/, 'L32 644 Q26 644 26 638 Z');
- const outer='M80 276 H370 Q425 276 426 330 L434 651 Q436 685 392 696 L268 730 Q248 735 253 751 L253 768 H197 V751 Q203 735 182 730 L58 696 Q14 685 16 651 L24 330 Q25 276 80 276 Z';
+ const outer=funnelOuter;
  await save(`board-${cols}`,450,790,`<defs><linearGradient id="blue" x2="0" y2="1"><stop stop-color="#9cbccb"/><stop offset="1" stop-color="#82a3bb"/></linearGradient>${depthDefs}</defs>${dropShadow(outer)}${innerFace(outer,'wallface',faceOf['#4b689c'],'#d0d9ef',14)}${depthWall(outer,'#4b689c',lighten['#4b689c'],'none')}${innerShadow(outer,'floor',{opacity:.26})}${castShadow(`<path d="${wall}" fill="FILL"/>`,{opacity:.38})}<path d="${wall}" transform="translate(0,6)" fill="#8094bf"/>${innerFace(wall,'glassface','#85a6b8','url(#blue)',11)}<path d="${wall}" fill="none" stroke="#577e8e" stroke-width="4" stroke-linejoin="round"/>`);
 }

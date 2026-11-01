@@ -1,6 +1,6 @@
-import sharp from 'sharp';import{depthDefs,dropShadow,wall,innerShadow,castShadow,lighten,innerFace,faceOf}from'./board-depth.mjs';import{writeFile}from'node:fs/promises';
+import sharp from 'sharp';import{depthDefs,dropShadow,wall,innerShadow,castShadow,lighten,innerFace,faceOf,funnelOuter}from'./board-depth.mjs';import{writeFile}from'node:fs/promises';
 function rows(l){if(l<8)return ['####','####','####'];if(l===8)return['.###.','#####','#####','.###.'];if(l===9)return['..#..','.###.','#####','#####','.###.'];if(l<14)return['T##T','####','####','####'];if(l<18)return['.#.#.','#####','##T##','#####','#####'];if(l===18)return['..###..','.#####.','##T#T##','#######','.#####.','..###..'];return['.###.','.###T','T####','#####','###X#'];}
-const outer='M80 276 H370 Q425 276 426 330 L434 651 Q436 685 392 696 L268 730 Q248 735 253 751 L253 768 H197 V751 Q203 735 182 730 L58 696 Q14 685 16 651 L24 330 Q25 276 80 276 Z';
+const outer=funnelOuter;
 for(let l=5;l<=19;l++){const map=rows(l).reverse(),cols=map[0].length,step=cols>5?44:53,occ=(x,y)=>y>=0&&y<map.length&&x>=0&&x<cols&&map[y][x]!=='.';let edges=[];
  // Clockwise contour in screen coordinates, cell rows run upwards.
  for(let y=0;y<map.length;y++)for(let x=0;x<cols;x++)if(occ(x,y)){if(!occ(x,y+1))edges.push([[x,y+1],[x+1,y+1]]);if(!occ(x+1,y))edges.push([[x+1,y+1],[x+1,y]]);if(!occ(x,y-1))edges.push([[x+1,y],[x,y]]);if(!occ(x-1,y))edges.push([[x,y],[x,y+1]]);}
