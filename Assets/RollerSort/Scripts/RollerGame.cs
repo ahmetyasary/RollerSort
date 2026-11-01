@@ -11,7 +11,7 @@ public sealed partial class RollerGame : MonoBehaviour {
  readonly Color navy=new Color32(47,37,86,255), purple=new Color32(169,132,233,255);
  const float BeltY=790;
  readonly Dictionary<string,Sprite> art=new();
- readonly Color[] colors={new Color32(255,213,15,255),new Color32(255,80,127,255),new Color32(12,211,83,255),new Color32(57,223,250,255),new Color32(166,79,249,255),new Color32(59,99,249,255),new Color32(255,169,0,255),new Color32(252,185,255,255),new Color32(201,105,65,255),new Color32(86,84,96,255)};
+ readonly Color[] colors={new Color32(255,242,58,255),new Color32(196,58,77,255),new Color32(62,138,67,255),new Color32(220,247,255,255),new Color32(166,79,249,255),new Color32(59,99,249,255),new Color32(255,169,0,255),new Color32(252,185,255,255),new Color32(201,105,65,255),new Color32(86,84,96,255)};
  Canvas canvas; RectTransform root,game,overlay,suspendedShop; Font font; Sprite rounded,orb; Text levelText,coinText,hint; AudioSource audioSource;
  int level,coins,completed,activeBalls,capacity=36,pendingReward; float physicsAccumulator; int praiseVersion; bool paused,won,sound,haptics; float clock; float lastMatchTime,blockedBeltTime;
  readonly List<Box> boxes=new(); readonly List<Ball> balls=new(); readonly List<Tray> trays=new();
@@ -106,7 +106,7 @@ public sealed partial class RollerGame : MonoBehaviour {
   var layout=LevelLayouts.Rows(level);int cols=layout[0].Length,rows=layout.Length,colorCount=Mathf.Min(3+(level-1)/2,7);
   var board=Picture(game,IsHardJourneyLevel(level)?"board-hard-reference":level<=4?"board-"+cols:"level-board-"+Mathf.Min(level,19),new Vector2(0,395),new Vector2(450,790));
   if(hardStage)board.GetComponent<Image>().color=IsHardJourneyLevel(level)?Color.white:new Color(.43f,.45f,.47f,1);else if(level>=12)board.GetComponent<Image>().color=Color.white;
-  if(hardStage){var badge=Panel(game,"Difficulty badge",new Vector2(0,142),new Vector2(132,34),new Color32(225,48,66,255));Label(badge,IsVeryHardJourneyLevel(level)?"Very Hard":"Hard",new Vector2(0,17),17,bounds:new Vector2(122,30));}
+  if(hardStage){var badge=Panel(game,"Difficulty badge",new Vector2(0,148),new Vector2(128,32),new Color32(212,72,75,255));Picture(badge,"skull",new Vector2(-42,16),new Vector2(23,23));Label(badge,IsVeryHardJourneyLevel(level)?"Very Hard":"Hard",new Vector2(12,16),17,bounds:new Vector2(92,28));}
   int seed=level*7919;var rng=new System.Random(seed);var sequence=LevelPlanner.BalancedColors(rows*cols,colorCount,seed);
   if(level<=2)sequence=new List<int>{0,0,2,1,1,2};
   if(level==4)sequence=new List<int>{2,0,6,6,0,6,5,2,5,6,0,0,2,5,0,0};
@@ -144,7 +144,7 @@ public sealed partial class RollerGame : MonoBehaviour {
   if(!magnetRelease&&activeBalls+9>capacity){HapticFeedback.Play(HapticCue.Blocked);Toast("Bant dolu! Renkleri eşleştir veya yeniden dene.");return;}
   bool magnetic=magnetRelease;magnetRelease=false;if(magnetic){inventory[0]--;SaveBoosters();UpdateInventory();Sfx("magnet",.7f);}
   b.removed=true;RefreshSourceAccess();TryEmitPortals();
-  StartCoroutine(Shrink(b.view));Sfx("open",.65f,1+b.color*.025f);StartCoroutine(DropSoundCascade(b.color));HapticFeedback.Play(HapticCue.OpenBox);
+  StartCoroutine(BurstOpen(b.view));Sfx("open",.65f,1+b.color*.025f);StartCoroutine(DropSoundCascade(b.color));HapticFeedback.Play(HapticCue.OpenBox);
   Vector2 pos=b.view.anchoredPosition;pos.y=-pos.y;
   for(int i=0;i<9;i++){
    Vector2 start=pos+new Vector2((i%3-1)*13,(1-i/3)*13);
@@ -206,16 +206,36 @@ public sealed partial class RollerGame : MonoBehaviour {
   CheckBlockedBelt(Time.deltaTime);
   if(!won&&boxes.Count>0&&boxes.TrueForAll(b=>b.removed)&&portals.TrueForAll(p=>p.next.Count==0&&!p.emitting)&&balls.Count==0&&trays.TrueForAll(t=>t.color<0)){won=true;StartCoroutine(Victory());}
  }
- IEnumerator Shrink(RectTransform r){for(float t=0;t<.22f;){t+=GameStep;if(!r)yield break;float p=Mathf.Clamp01(t/.22f);r.localScale=new Vector3(1-p,1-p*.7f,1);r.localRotation=Quaternion.Euler(0,0,p*8);r.GetComponent<Image>().color=new Color(1,1,1,1-p);yield return null;}if(r)Destroy(r.gameObject);}
+ // An opened source bulges briefly, then bursts as its marbles spill out.
+ IEnumerator BurstOpen(RectTransform r){for(float t=0;t<.16f;){t+=GameStep;if(!r)yield break;float p=Mathf.Clamp01(t/.16f),fade=Mathf.InverseLerp(.35f,1,p);float scale=p<.35f?Mathf.Lerp(1,1.12f,Mathf.SmoothStep(0,1,p/.35f)):Mathf.Lerp(1.12f,.55f,fade);r.localScale=new Vector3(scale,scale,1);r.GetComponent<Image>().color=new Color(1,1,1,1-fade);yield return null;}if(r)Destroy(r.gameObject);}
  IEnumerator CompleteTray(Tray t){
   completed++;StartCoroutine(TrayCompleteSound(completed));HapticFeedback.Play(HapticCue.TrayComplete);StartCoroutine(Praise(completed%2==0?"Sweet":"Neat"));
-  var group=t.group;Vector2 start=t.top.anchoredPosition;
-  StartCoroutine(Burst(new Vector2(t.view.anchoredPosition.x,839),colors[t.color],14));
-  for(float elapsed=0;elapsed<.34f;){elapsed+=GameStep;float p=Mathf.Clamp01(elapsed/.34f),lift=Mathf.SmoothStep(0,1,Mathf.InverseLerp(.18f,1,p));t.top.localScale=Vector3.one*(1+Mathf.Sin(Mathf.Min(1,p*1.7f)*Mathf.PI)*.14f);t.top.anchoredPosition=start+Vector2.up*lift*46;t.top.localRotation=Quaternion.Euler(0,0,Mathf.Sin(p*Mathf.PI)*-5);group.alpha=1-Mathf.Pow(lift,2);for(int i=0;i<t.covers.Count;i++)t.covers[i].rectTransform.anchoredPosition=new Vector2(0,-50-i*35+38*Mathf.SmoothStep(0,1,lift));yield return null;}
-  t.count=0;t.landed=0;t.color=t.next.Count>0?t.next.Dequeue():-1;t.completing=false;DrawTray(t);t.top.localRotation=Quaternion.identity;StartCoroutine(ReceiverArrival(t.top));
-
+  // A detached copy of the full receiver rises above the belt and pops,
+  // while the queue advances underneath and the next receiver opens its lid.
+  Vector2 seat=new(t.view.anchoredPosition.x,843),popAt=seat+Vector2.down*50;string name=ColorName(t.color);
+  var ghost=Picture(actors,"receiver-"+name+"-v2",seat,new Vector2(80,39));for(int i=0;i<3;i++)Picture(ghost,"marble-"+name+"-v2",new Vector2((i-1)*23,14),Vector2.one*21);
+  var lidSprite=t.next.Count>0?t.covers[0].sprite:null;
+  t.count=0;t.landed=0;t.color=t.next.Count>0?t.next.Dequeue():-1;DrawTray(t);t.top.localRotation=Quaternion.identity;
+  RectTransform lid=null;Image lidImage=null;if(t.color>=0&&lidSprite){lid=Panel(t.top,"Opening lid",new Vector2(0,19),new Vector2(81,46),Color.white);lidImage=lid.GetComponent<Image>();lidImage.sprite=lidSprite;lidImage.type=Image.Type.Simple;}
+  bool popped=false;
+  for(float time=0;time<.42f;){time+=GameStep;
+   float slide=1-Mathf.Pow(1-Mathf.Clamp01(time/.16f),3);
+   t.top.anchoredPosition=new Vector2(0,-15-35*(1-slide));for(int i=0;i<t.covers.Count;i++)t.covers[i].rectTransform.anchoredPosition=new Vector2(0,-50-i*35-35*(1-slide));
+   if(lid){float p=Mathf.Clamp01((time-.16f)/.18f),ease=1-Mathf.Pow(1-p,2);lid.anchoredPosition=new Vector2(9*ease,-19+26*ease);lid.localRotation=Quaternion.Euler(0,0,-14*ease);lidImage.color=new Color(1,1,1,1-p);}
+   if(ghost){float rise=1-Mathf.Pow(1-Mathf.Clamp01(time/.22f),3),shrink=Mathf.Clamp01((time-.22f)/.14f);Vector2 p=Vector2.Lerp(seat,popAt,rise);ghost.anchoredPosition=new Vector2(p.x,-p.y);ghost.localScale=Vector3.one*Mathf.Lerp(1,1.2f,rise)*(1-shrink*shrink);
+    if(shrink>0&&!popped){popped=true;StartCoroutine(PopRing(popAt));}
+    if(shrink>=1){Destroy(ghost.gameObject);ghost=null;StartCoroutine(StarBurst(popAt,7));}}
+   yield return null;}
+  if(ghost)Destroy(ghost.gameObject);if(lid)Destroy(lid.gameObject);
+  t.top.anchoredPosition=new Vector2(0,-15);for(int i=0;i<t.covers.Count;i++)t.covers[i].rectTransform.anchoredPosition=new Vector2(0,-50-i*35);
+  t.completing=false;
  }
- IEnumerator ReceiverArrival(RectTransform r){Vector2 end=r.anchoredPosition;for(float time=0;time<.22f;){if(!r)yield break;time+=GameStep;float p=Mathf.Clamp01(time/.22f);r.anchoredPosition=end+Vector2.down*35*Mathf.Pow(1-p,3);r.localScale=new Vector3(1+.035f*Mathf.Sin(p*Mathf.PI),1-.035f*Mathf.Sin(p*Mathf.PI),1);yield return null;}if(r){r.anchoredPosition=end;r.localScale=Vector3.one;}}
+ IEnumerator PopRing(Vector2 position){var ring=Picture(actors,"pop-ring",position,new Vector2(48,48));var image=ring.GetComponent<Image>();for(float t=0;t<.2f;){t+=GameStep;if(!ring)yield break;float p=Mathf.Clamp01(t/.2f);ring.localScale=Vector3.one*Mathf.Lerp(.45f,1.35f,1-Mathf.Pow(1-p,2));image.color=new Color(1,1,1,1-p);yield return null;}if(ring)Destroy(ring.gameObject);}
+ IEnumerator StarBurst(Vector2 position,int count){
+  var stars=new RectTransform[count];var directions=new Vector2[count];for(int i=0;i<count;i++){float a=Mathf.Lerp(200,340,(float)i/(count-1))*Mathf.Deg2Rad;directions[i]=new Vector2(Mathf.Cos(a),Mathf.Sin(a));stars[i]=Picture(actors,"star-white",position,Vector2.one*(i%2==0?13:9));}
+  for(float t=0;t<.4f;){t+=GameStep;float p=Mathf.Clamp01(t/.4f),travel=1-Mathf.Pow(1-p,2);for(int i=0;i<count;i++){var r=stars[i];if(!r)continue;Vector2 pos=position+directions[i]*(8+34*travel);r.anchoredPosition=new Vector2(pos.x,-pos.y);r.localScale=Vector3.one*(p<.2f?p/.2f:1-Mathf.InverseLerp(.55f,1,p));r.localRotation=Quaternion.Euler(0,0,(i%2==0?1:-1)*120*p);}yield return null;}
+  foreach(var r in stars)if(r)Destroy(r.gameObject);
+ }
  IEnumerator Settle(RectTransform r){Vector2 end=r.anchoredPosition;for(float t=0;t<.23f;){if(!r)yield break;t+=GameStep;float p=Mathf.Clamp01(t/.23f);r.anchoredPosition=end+Vector2.down*35*Mathf.Pow(1-p,3);yield return null;}if(r)r.anchoredPosition=end;}
  IEnumerator Praise(string message){int version=++praiseVersion;hint.text=GameLanguage.Text(message);hint.color=Color.white;for(float t=0;t<.85f;){t+=GameStep;if(version!=praiseVersion)yield break;float p=t/.85f;hint.rectTransform.localScale=Vector3.one*(1+.16f*Mathf.Sin(Mathf.Min(1,p*3)*Mathf.PI));hint.rectTransform.anchoredPosition=new Vector2(0,-738+18*p);hint.color=new Color(1,1,1,1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(.65f,1,p)));yield return null;}if(version==praiseVersion)hint.text="";}
  IEnumerator Burst(Vector2 position,Color color,int count){

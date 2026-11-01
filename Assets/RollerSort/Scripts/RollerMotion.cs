@@ -35,7 +35,8 @@ namespace RollerSort {
       // Small spheres emerge from the source; they reach full size before the funnel.
       float emergence=Mathf.SmoothStep(0,1,Mathf.Clamp01(ball.age/.13f));
       ball.radius=Mathf.Lerp(6.4f,MarbleRadius,emergence);ball.bounce=Vector2.zero;
-      ball.velocity.y+=Gravity*dt;ball.velocity*=Mathf.Exp(-.35f*dt);
+      // Marbles pop out of the opened source for a moment before gravity takes them.
+      if(ball.age>.08f)ball.velocity.y+=Gravity*dt;ball.velocity*=Mathf.Exp(-.35f*dt);
       ball.position+=ball.velocity*dt;
       break;
      case 1:

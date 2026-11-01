@@ -47,3 +47,18 @@ The source layout and first four receiver colours are observed. Hidden receiver 
 Editor checks passed: basic54-marble victory; full level19 with25 source releases including6 tunnel outputs and225 matched marbles; fixed portal order and side access; dense base/expanded belt spacing, admission and funnel drainage; progression and lives checks. Native simulator results are recorded separately after installation.
 
 Native iPhone18 Pro Max simulator (iPhone19,3) Release build passed the full reconstructed level19:151.23s, completedLevels1, retries0,8774 sampled frames after warmup. Average16.667ms, p9517.274ms, p9917.315ms, worst22.963ms; no frames above25ms. These are simulator measurements, not physical-device guarantees. Report: native-motion-profile.json; recorded run: native-reference-gameplay.mp4. Original simulator level9/700coins preferences restored afterward.
+
+## Second recording — level 35 (Hard), 1 November 2026
+
+Source: user-provided `ScreenRecording_11-01-2026 19-32-10_1.mov` (271 s; 1290 × 2796; ~59 fps). The audio track is silent and the recording shows sound and haptics switched off in Settings, so it gives no audio or haptic evidence. Screen recordings never capture haptics.
+
+Measured and applied:
+
+- Palette sampled from closed sources: crimson `#BB3A4C`, forest green `#3E8541`, ice `#DDF9FF`, lemon `#FFF852`, plus blue, orange, violet, pale pink and brown already close. The `pink`, `green`, `cyan` and `yellow` asset keys keep their names; only their tones changed (`Tools/generate-quality-art.mjs`).
+- Mystery sources are slate `#738D9E` with a dark navy question mark (`#4D5468`), not a light tile with a white glyph. Queue covers match.
+- Mystery placement on level 35 forms blocks on the outer columns of the upper rows; the two rows nearest the exit and the centre columns stay coloured. `HiddenSource` reproduces this rule for every level from 6.
+- Hard badge carries a skull icon to the left of the label.
+- Tray completion (~0.6 s): the full receiver rises about 50 units onto the belt while growing to ~1.2×, then shrinks to nothing inside an expanding white ring, followed by white stars. The queue slides up one slot within ~0.15 s and the new receiver's lid lifts off. Belt marbles keep moving throughout.
+- Source release: the box bulges briefly and bursts; marbles hold near the box for a moment, then fall by gravity in staggered rows, roll down the ramp and enter the throat.
+
+Not adopted: exact level data, the other game's branding and art, and booster prices (Cannon costs 2,600 coins there).
