@@ -25,3 +25,5 @@ Latest version/build: `1.0 (2)`. Export verified on 22 October 2026 with the exi
 
 
 27 October 2026: release candidate **1.0 (5)** exported successfully with existing cloud signing and delivered through Transporter. IPA: `Builds/TestFlight/Export-Smartlogy-Cloud-1.0-5/RollerSort.ipa`. App Store review submission verified **Waiting for Review** at 22:13 Europe/Istanbul; see `AppStoreSubmission.md`.
+
+1 November 2026: build **1.0 (6)** archived and uploaded to App Store Connect with `xcodebuild -exportArchive` (destination `upload`, Xcode-signed-in account, automatic signing). Apple reported **Upload succeeded**; the build was used for TestFlight testing. The UnityRuntime dSYM upload warning does not block delivery. The next build number is **7**; a 1.0 (7) IPA made the same day was never uploaded and was deleted.
