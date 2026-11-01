@@ -92,7 +92,7 @@ public sealed partial class RollerGame : MonoBehaviour {
  }
  void Clear(Transform t){foreach(Transform child in t){child.gameObject.SetActive(false);Destroy(child.gameObject);}}
  void BuildLevel(){
-  BeltTrack.Configure(level>=15);StopAllCoroutines();sparkPool.Clear();marbleVisuals.Clear();marblePool.Clear();beltSockets.Clear();physicsAccumulator=0;praiseVersion++;
+  BeltTrack.Configure(level>=15);StopAllCoroutines();sparkPool.Clear();marbleVisuals.Clear();marblePool.Clear();beltSockets.Clear();physicsAccumulator=0;praiseVersion++;lastChimeTime=-10;
   if(game)Destroy(game.gameObject);if(overlay)Destroy(overlay.gameObject);if(suspendedShop)Destroy(suspendedShop.gameObject);
   journey=false;failed=false;spaceOffer=false;selectingBooster=-1;boxes.Clear();portals.Clear();stones.Clear();balls.Clear();trays.Clear();completed=0;activeBalls=0;paused=false;capacity=level>=15?72:54;blockedBeltTime=0;lastMatchTime=clock;won=false;
   bool hardStage=IsHardJourneyLevel(level)||IsVeryHardJourneyLevel(level);
@@ -187,8 +187,14 @@ public sealed partial class RollerGame : MonoBehaviour {
  IEnumerator DropSoundCascade(int color){
   float[] waits={.045f,.055f,.075f,.10f};for(int i=0;i<waits.Length;i++){yield return new WaitForSeconds(waits[i]);if(paused)yield break;Sfx("contact",.18f+i*.035f,.88f+color*.018f+i*.055f);}
  }
+ // Trays finished within two seconds of each other climb a chord ladder (I, IV, V, I);
+ // a longer pause starts the ladder again from the bottom.
+ float lastChimeTime=-10;int chimeStep;
  IEnumerator TrayCompleteSound(int order){
-  Sfx("complete",.58f,1+(order%4)*.035f);yield return new WaitForSeconds(.065f);Sfx("seat",.34f,1.24f);yield return new WaitForSeconds(.075f);Sfx("seat",.28f,1.42f);
+  // Lands on the visual pop above the belt; the clip carries its own arpeggio.
+  yield return new WaitForSeconds(.2f);
+  chimeStep=Time.time-lastChimeTime>2f?0:Mathf.Min(chimeStep+1,3);lastChimeTime=Time.time;
+  Sfx(chimeStep==0?"complete":"complete-up"+chimeStep,.62f);
  }
  float GameStep=>paused?0:Time.deltaTime;
  IEnumerator Pop(RectTransform r,float duration,float amount){for(float t=0;t<duration;){if(!r)yield break;t+=GameStep;float p=Mathf.Clamp01(t/duration);r.localScale=Vector3.one*(1+Mathf.Sin(p*Mathf.PI)*amount*(1-p));yield return null;}if(r)r.localScale=Vector3.one;}
