@@ -15,7 +15,7 @@ namespace RollerSort.Editor {
     game.StopAllCoroutines();Set("level",level);Call("BuildLevel");
     var balls=(IList)Get("balls");var trays=(IList)Get("trays");
     foreach(var tray in trays){tray.GetType().GetField("color").SetValue(tray,3);tray.GetType().GetField("count").SetValue(tray,0);}
-    int full=Mathf.FloorToInt(BeltTrack.PackingLength/BeltTrack.MinimumPitch);
+    int full=BeltTrack.SlotCount;
     var type=typeof(RollerGame).GetNestedType("Ball",BindingFlags.NonPublic);
     for(int i=0;i<full;i++){var ball=Activator.CreateInstance(type);type.GetField("stage").SetValue(ball,1);type.GetField("color").SetValue(ball,0);balls.Add(ball);}
     Func<bool> blocked=()=> (bool)typeof(RollerGame).GetMethod("BeltCannotProgress",F).Invoke(game,null);

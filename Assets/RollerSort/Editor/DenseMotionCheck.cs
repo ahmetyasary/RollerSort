@@ -9,7 +9,7 @@ namespace RollerSort.Editor {
   static DenseMotionCheck(){if(SessionState.GetBool("DenseMotionQA",false)){started=EditorApplication.timeSinceStartup;EditorApplication.update+=Tick;}}
   public static void Run(){SessionState.SetBool("DenseMotionQA",true);started=EditorApplication.timeSinceStartup;UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/RollerSort/Scenes/RollerSort.unity");EditorApplication.update+=Tick;EditorApplication.isPlaying=true;}
   static object Get(string n)=>typeof(RollerGame).GetField(n,F).GetValue(game);static void Set(string n,object v)=>typeof(RollerGame).GetField(n,F).SetValue(game,v);static void Call(string n,params object[] args)=>typeof(RollerGame).GetMethod(n,F).Invoke(game,args);static void Field(object o,string n,object v)=>o.GetType().GetField(n).SetValue(o,v);static object Field(object o,string n)=>o.GetType().GetField(n).GetValue(o);
-  static void Tick(){try{if(EditorApplication.timeSinceStartup-started>40)throw new Exception("Dense motion test timeout");if(!EditorApplication.isPlaying)return;EditorApplication.QueuePlayerLoopUpdate();Application.runInBackground=true;game=UnityEngine.Object.FindFirstObjectByType<RollerGame>();if(!game||Get("game")==null||done)return;done=true;game.enabled=false;Set("diagnosticsActive",true);Set("level",19);Scenario(false,false);Scenario(true,false);Scenario(true,true);FunnelStress();Debug.Log("ROLLER_DENSE_MOTION_OK: base/full expanded belts, full circuit and admission into one remaining gap, no overlaps.");Finish(0);}catch(Exception e){Debug.LogException(e);Finish(1);}}
+  static void Tick(){try{if(EditorApplication.timeSinceStartup-started>40)throw new Exception("Dense motion test timeout");if(!EditorApplication.isPlaying)return;EditorApplication.QueuePlayerLoopUpdate();Application.runInBackground=true;game=UnityEngine.Object.FindFirstObjectByType<RollerGame>();if(!game||Get("game")==null||done)return;done=true;game.enabled=false;Set("diagnosticsActive",true);Set("level",19);Scenario(false,false);Scenario(true,false);Scenario(true,true);FunnelStress();FullBeltDetected(false);FullBeltDetected(true);ArchBreaks();Debug.Log("ROLLER_DENSE_MOTION_OK: base/full expanded belts, full circuit and admission into one remaining gap, no overlaps.");Finish(0);}catch(Exception e){Debug.LogException(e);Finish(1);}}
   static void Scenario(bool expanded,bool admission){Set("level",expanded?19:1);Call("BuildLevel");var moving=(IList)Get("balls");foreach(var t in (IList)Get("trays"))Field(t,"color",-1);int number=BeltTrack.SlotCount;
    for(int i=0;i<number;i++){if(admission&&i==0)continue;float phase=BeltTrack.FromPackingPhase((float)i/number);Add(1,phase,BeltTrack.Point(phase));}
    if(admission)Add(0,0,new Vector2(0,738));Set("activeBalls",number);
@@ -21,6 +21,27 @@ namespace RollerSort.Editor {
    for(int i=0;i<1800;i++){Call("StepMarbles",1f/120);if(i<480||i%60!=0)continue;for(int j=moving.Count-1;j>=0;j--)if((int)Field(moving[j],"stage")==1){Call("ReturnMarble",Field(moving[j],"view"));moving.RemoveAt(j);}}
    foreach(var b in moving)if((int)Field(b,"stage")!=1)throw new Exception("Funnel retained a stranded sphere: "+Field(b,"position"));
    Debug.Log("ROLLER_FUNNEL_STRESS_OK: 36-sphere pile drains after outlet pressure is released.");
+  }
+  // Regression: a belt filled through the real feed with unmatched spheres must be reported as stuck.
+  // The base belt admits SlotCount spheres, fewer than its geometric packing limit.
+  static void FullBeltDetected(bool expanded){Set("level",expanded?19:1);Call("BuildLevel");foreach(var t in (IList)Get("trays"))Field(t,"color",-1);var moving=(IList)Get("balls");var type=typeof(RollerGame).GetNestedType("Ball",BindingFlags.NonPublic);for(int i=0;i<40;i++){var b=Activator.CreateInstance(type,true);Vector2 p=new((i%6-2.5f)*26,570+(i/6)*26);Field(b,"color",0);Field(b,"stage",0);Field(b,"age",1f);Field(b,"radius",BeltTrack.PaintedDiameter*.5f);Field(b,"position",p);Field(b,"previous",p);Field(b,"start",p);Field(b,"velocity",Vector2.zero);var view=(RectTransform)typeof(RollerGame).GetMethod("TakeMarble",F).Invoke(game,new object[]{0});Field(b,"view",view);Field(b,"visual",((IDictionary)Get("marbleVisuals"))[view]);moving.Add(b);}Set("activeBalls",40);
+   for(int i=0;i<2400;i++)Call("StepMarbles",1f/120);
+   int onBelt=0;foreach(var b in moving)if((int)Field(b,"stage")==1)onBelt++;
+   if(onBelt!=BeltTrack.SlotCount)throw new Exception("Feed did not fill the belt: "+onBelt+"/"+BeltTrack.SlotCount+" expanded="+expanded);
+   if(!(bool)typeof(RollerGame).GetMethod("BeltCannotProgress",F).Invoke(game,null))throw new Exception("Full unmatched belt not detected as stuck, expanded="+expanded);
+   Debug.Log("ROLLER_FULL_BELT_OK: "+onBelt+" spheres fed, jam detected, expanded="+expanded);
+  }
+  // Regression: two spheres resting on opposite throat noses under a heavy pile form an arch.
+  // The funnel must still feed the belt while the belt has room.
+  static void ArchBreaks(){Set("level",11);Call("BuildLevel");foreach(var t in (IList)Get("trays"))Field(t,"color",-1);var moving=(IList)Get("balls");var type=typeof(RollerGame).GetNestedType("Ball",BindingFlags.NonPublic);
+   void Add(Vector2 p){var b=Activator.CreateInstance(type,true);Field(b,"color",0);Field(b,"stage",0);Field(b,"age",1f);Field(b,"radius",BeltTrack.PaintedDiameter*.5f);Field(b,"position",p);Field(b,"previous",p);Field(b,"start",p);Field(b,"velocity",Vector2.zero);var view=(RectTransform)typeof(RollerGame).GetMethod("TakeMarble",F).Invoke(game,new object[]{0});Field(b,"view",view);Field(b,"visual",((IDictionary)Get("marbleVisuals"))[view]);moving.Add(b);}
+   Add(new Vector2(-12.75f,724.4f));Add(new Vector2(12.75f,724.4f));
+   for(int i=0;i<50;i++)Add(new Vector2((i%10-4.5f)*26,690-(i/10)*26));
+   Set("activeBalls",moving.Count);
+   for(int i=0;i<480;i++)Call("StepMarbles",1f/120);
+   int onBelt=0;foreach(var b in moving)if((int)Field(b,"stage")==1)onBelt++;
+   if(onBelt<12)throw new Exception("Funnel arch blocked the outlet: only "+onBelt+" spheres reached the belt in 4 s");
+   Debug.Log("ROLLER_ARCH_OK: "+onBelt+" spheres fed past a two-sphere arch in 4 s.");
   }
   static void Finish(int code){SessionState.SetBool("DenseMotionQA",false);EditorApplication.update-=Tick;EditorApplication.Exit(code);}
  }

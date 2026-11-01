@@ -17,7 +17,9 @@ namespace RollerSort {
     circulating++;
     foreach(var tray in trays)if(tray.color==ball.color&&tray.count<3)return false;
    }
-   return circulating>=Mathf.FloorToInt(BeltTrack.PackingLength/BeltTrack.MinimumPitch);
+   // Full means the feed will admit no more spheres (TryFeedBelt stops at SlotCount),
+   // not the geometric packing limit, which the base belt can never reach.
+   return circulating>=BeltTrack.SlotCount;
   }
   void CheckBlockedBelt(float dt){
    if(won||paused){blockedBeltTime=0;return;}
@@ -112,6 +114,7 @@ namespace RollerSort {
     float throat=ThroatHalfWidth-ball.radius;
     ball.position.x=Mathf.Clamp(ball.position.x,-throat,throat);
    }
+   if(ball==throatPick){ball.position.x=Mathf.MoveTowards(ball.position.x,0,1.5f);ball.position.y+=.4f;}
    // The physical outlet stays closed until there is one diameter of free belt.
    if(ball.position.y>GateY)ball.position.y=GateY;
   }
@@ -178,16 +181,18 @@ namespace RollerSort {
    for(int i=0;i<count;i++){var b=orderedBelt[i];b.phase=BeltTrack.FromPackingPhase(phase+orderedDistance[i]/BeltTrack.PackingLength);b.position=BeltPoint(b.phase);orderedBelt[i]=null;}
   }
 
-  // The throat admits one sphere at a time. Two spheres resting on opposite noses
-  // can lock into an arch, so the one nearest the outlet is eased toward the centre;
-  // the contact solve then lifts its neighbour aside.
-  void CentreThroatBall(){
-   Ball nearest=null;
+  // The throat admits one sphere at a time, so two spheres resting on opposite noses
+  // under a heavy pile can lock into an arch. When the belt has room but nothing has
+  // been admitted for a moment, the sphere nearest the outlet is steered onto the
+  // centre line inside every contact iteration; its neighbour is pushed aside and it drops.
+  Ball throatPick;int stepsSinceAdmission;
+  void PickThroatBall(int transported){
+   if(throatPick!=null&&(throatPick.stage!=0||!balls.Contains(throatPick)))throatPick=null;
+   if(throatPick!=null||transported>=BeltTrack.SlotCount||++stepsSinceAdmission<12)return;  // 0.1 s at 120 Hz
    foreach(var ball in balls){
-    if(ball.stage!=0||ball.age<0||ball.position.y<GateY-18||Mathf.Abs(ball.position.x)>ThroatHalfWidth+ball.radius)continue;
-    if(nearest==null||ball.position.y-Mathf.Abs(ball.position.x)>nearest.position.y-Mathf.Abs(nearest.position.x))nearest=ball;
+    if(ball.stage!=0||ball.age<0||ball.position.y<GateY-30||Mathf.Abs(ball.position.x)>ThroatHalfWidth+ball.radius*1.5f)continue;
+    if(throatPick==null||ball.position.y-Mathf.Abs(ball.position.x)>throatPick.position.y-Mathf.Abs(throatPick.position.x))throatPick=ball;
    }
-   if(nearest!=null)nearest.position.x=Mathf.MoveTowards(nearest.position.x,0,1.2f);
   }
   void TryFeedBelt(){
    int transported=0;foreach(var ball in balls){if(ball.stage==3)return;if(ball.stage==1)transported++;}
@@ -197,7 +202,8 @@ namespace RollerSort {
     if(ball.stage!=0||ball.age<0||ball.position.y<GateY-2.5f||Mathf.Abs(ball.position.x)>ThroatHalfWidth-ball.radius+1)continue;
     if(candidate==null||ball.position.y>candidate.position.y)candidate=ball;
    }
-   if(candidate==null){CentreThroatBall();return;}
+   if(candidate==null){PickThroatBall(transported);return;}
+   stepsSinceAdmission=0;if(candidate==throatPick)throatPick=null;
    float entryPhase=candidate.position.x/BeltTrack.Length;
    // One continuous cubic arc, with its exit tangent matching conveyor velocity.
    candidate.stage=3;candidate.age=0;candidate.phase=Mathf.Repeat(entryPhase,1);candidate.transferPhaseStart=entryPhase;candidate.seatStart=candidate.position;

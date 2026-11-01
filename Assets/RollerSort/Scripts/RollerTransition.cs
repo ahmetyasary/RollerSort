@@ -12,6 +12,7 @@ namespace RollerSort {
   // The splash shutters close over the current screen around the logo, the
   // next screen is built underneath, then the shutters open onto it.
   void LogoTransition(Action swap){
+   if(Application.isBatchMode){swap();return;}  // headless checks have no one to watch it and need the next screen at once
    var curtain=Panel(root,"Logo transition",new Vector2(0,H/2),new Vector2(W,H),Color.clear);curtain.GetComponent<Image>().raycastTarget=true;
    var halves=new RectTransform[2];
    for(int i=0;i<2;i++){var half=Panel(curtain,i==0?"Upper shutter":"Lower shutter",new Vector2(0,H/4+i*H/2),new Vector2(W,H/2),Color.clear);half.gameObject.AddComponent<RectMask2D>();Picture(half,"splash-bg",new Vector2(0,H/2-i*H/2),new Vector2(W,H));halves[i]=half;}
