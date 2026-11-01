@@ -1,0 +1,23 @@
+# ninja log v5
+632	662	1792653302121988874	/Users/ahmetyasary/MyApps/RollerSort/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2r14j62f/obj/arm64-v8a/libgame.so	d6d2937f40b00b89
+0	632	1792653302092339181	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	55affe2dbba4155c
+1	609	1792653302068896311	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	fa1d2d39903bf093
+2	567	1792653302027254724	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	96cb2487985b6657
+1	524	1792653301980547527	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	6eecfcf970e0de2f
+1	523	1792653301983083748	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	c2e6599a9f1a56f2
+1	487	1792653301945754474	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	3647c5e91837e06c
+0	475	1792653301933664913	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	deec59f6289e35cc
+2	118	1792653301580448069	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	1c226b11d08767af
+119	182	1792653301633464631	/Users/ahmetyasary/MyApps/RollerSort/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2r14j62f/obj/arm64-v8a/libswappywrapper.so	218229664ef82ad6
+1	505	1792653301964069985	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	3d758018b2748590
+8	304	1792689135793165702	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	1c226b11d08767af
+304	504	1792689135988661881	/Users/ahmetyasary/MyApps/RollerSort/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2r14j62f/obj/arm64-v8a/libswappywrapper.so	218229664ef82ad6
+7	683	1792689136170300243	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	3647c5e91837e06c
+7	706	1792689136193283298	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	6eecfcf970e0de2f
+7	717	1792689136204219201	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	3d758018b2748590
+7	717	1792689136204344743	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	deec59f6289e35cc
+7	722	1792689136209100904	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	c2e6599a9f1a56f2
+7	766	1792689136253875391	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	96cb2487985b6657
+7	804	1792689136291043887	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	fa1d2d39903bf093
+6	890	1792689136378352406	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	55affe2dbba4155c
+890	917	1792689136406350163	/Users/ahmetyasary/MyApps/RollerSort/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2r14j62f/obj/arm64-v8a/libgame.so	d6d2937f40b00b89

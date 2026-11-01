@@ -1,0 +1,16 @@
+{
+    "revision": "physical-flow",
+    "device": "iPhone19,3",
+    "engine": "6000.6.1f1",
+    "frames": 6900,
+    "completedLevels": 1,
+    "retries": 0,
+    "gcCollections": 16,
+    "framesOver25ms": 1,
+    "framesOver33ms": 0,
+    "durationSeconds": 120.00803829200002,
+    "averageMs": 16.666675567626953,
+    "p95Ms": 17.281959533691406,
+    "p99Ms": 17.31391716003418,
+    "worstMs": 28.07133674621582
+}

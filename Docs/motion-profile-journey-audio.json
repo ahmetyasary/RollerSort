@@ -1,0 +1,16 @@
+{
+    "revision": "journey-audio",
+    "device": "iPhone19,3",
+    "engine": "6000.6.1f1",
+    "frames": 6898,
+    "completedLevels": 2,
+    "retries": 0,
+    "gcCollections": 18,
+    "framesOver25ms": 2,
+    "framesOver33ms": 0,
+    "durationSeconds": 120.00077900000002,
+    "averageMs": 16.671539306640625,
+    "p95Ms": 16.70975112915039,
+    "p99Ms": 16.746620178222656,
+    "worstMs": 33.331626892089844
+}

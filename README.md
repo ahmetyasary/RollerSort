@@ -1,2 +1,46 @@
-# RollerSort
-Sort Game
+# Roller Sort
+
+Android ve iOS hedefli Unity 6 (6000.6.1f1) dikey mobil oyun prototipi.
+
+## Çalıştırma
+
+Unity Hub üzerinden bu klasörü açın. `Assets/RollerSort/Scenes/RollerSort.unity` sahnesinde Play'e basın. Sahne eksikse `Roller Sort > Prepare Mobile Project` menüsü sahneyi ve mobil ayarları oluşturur. Game görünümünde 450 × 975 veya dikey bir telefon çözünürlüğü seçin.
+
+## Mevcut kapsam
+
+- Roller Sort logosu, animasyonlu yükleme ekranı.
+- Dokunarak açılan kutular; dokuz bilyenin dökülmesi ve oval bantta dolaşması.
+- Renk eşleştiren üç gözlü tepsiler, sıradaki tepsi kuyruğu ve tamamlanma animasyonu.
+- Bölüme göre artan kolon, sıra ve renk sayısı; tekrarlanabilir bölüm üretimi.
+- Bant kapasitesi, dolma durumu ve yeniden deneme.
+- Bölüm ödülü, cihazda ilerleme kaydı, üç bölüm için günlük 100 altın görevi.
+- 6/8/11. bölümlerde açılan mıknatıs, kutu karıştırma ve yedek bant alanı (100 altın).
+- Ses/titreşim ayarları, dokunmatik arayüz ve cihazın güvenli ekran alanına uyum.
+
+Bilyeler hunide 120 Hz sabit adımlı özel 2B temas/yerçekimi çözücüsüyle hareket eder; bantta ayrı yuvalar, tepsiye girişte kısa yerleşme animasyonu kullanılır. Rigidbody kullanılmaz. Görseller referansların genel düzenini temel alan ilk uygulamadır; birebir görsel eşleşme tamamlanmış değildir.
+
+## Mobil derleme
+
+Build Profiles üzerinden Android veya iOS seçin. iOS modülü bu makinede mevcut. Android için Unity Hub'dan aynı Editor sürümüne Android Build Support, SDK/NDK ve OpenJDK kurulmalıdır. iOS için Xcode takım ve imzalama ayarları gerekir. Fiziksel cihaz performansı ve mağaza dağıtımı henüz doğrulanmamıştır.
+
+## Üretim öncesi işler
+
+Gerçek IAP/reklam SDK entegrasyonu, mağaza ikonları ve launch screen'in platform varlıkları, editörle tasarlanmış ve oynanış testleriyle dengelenmiş bölüm kataloğu, engeller, zorluk eğrisi, erişilebilirlik ve yerelleştirme, gerçek cihaz testleri, ses paketi ve görsel ince ayar. Mağaza ekranı satın alma yapmayan bir önizlemedir. Beş bölümlük hediye göstergesi görsel prototiptir; ayrı hediye ekonomisi henüz bağlı değildir.
+
+Saatlerce oynanabilirlik bir garanti değildir; bölüm tamamlama oranı, tekrar deneme oranı ve oyuncu geri bildirimleriyle değerlendirilmelidir.
+
+## Kontrol
+
+Editor batch smoke kontrolü, ilk bölümün altı kutusunu sırayla açar; 54 bilyenin eşleşip bölümün tamamlanmasını doğrular. `RollerSort.Editor.SmokeCheck.Run` giriş noktası bu amaçla kullanılır. Bu kontrol ilerleme kaydını sıfırlar; yalnız test verisiyle çalıştırın.
+
+## Görsel güncelleme
+
+Referans oranlarında oyun haznesi, huni, bant, uzun tepsi kuyrukları, kapaklar, bilyeler, HUD, ayarlar, mağaza ve ödül ekranı için özel varlık seti eklendi. Düzenlenebilir kaynaklar ve yeniden üretme adımları `Docs/Art-Guide.md` içindedir. Yeni ekran görüntüleri `Docs/` klasöründedir.
+
+## iOS açılış uyumluluğu
+
+Proje Unity 6000.6.1f1 kullanır. iOS 27 SDK ile 6000.3 çıktısı UIScene yaşam döngüsü kontrolünde açılışta kapanıyordu. Güncel Unity iOS çıktısındaki UnityScene ve UIApplicationSceneManifest desteği kullanılır.
+
+## Hareket ve haptic kalitesi
+
+Native iOS Core Haptics, Android semantik dokunma geri bildirimi, 31 yeni malzeme/efekt asseti, bilye havuzu, tepsi/kutu/düğme animasyonları eklendi. Ayrıntılar `Docs/Feel-Quality.md` içindedir.

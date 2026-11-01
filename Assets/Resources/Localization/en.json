@@ -1,0 +1,396 @@
+{
+  "entries": [
+    {
+      "key": "Settings",
+      "value": "Settings"
+    },
+    {
+      "key": "SOUND",
+      "value": "SOUND"
+    },
+    {
+      "key": "HAPTICS",
+      "value": "HAPTICS"
+    },
+    {
+      "key": "Restore Purchases",
+      "value": "Restore Purchases"
+    },
+    {
+      "key": "Help & Support",
+      "value": "Help & Support"
+    },
+    {
+      "key": "Privacy Policy",
+      "value": "Privacy Policy"
+    },
+    {
+      "key": "Daily Quest",
+      "value": "Daily Quest"
+    },
+    {
+      "key": "Journey",
+      "value": "Journey"
+    },
+    {
+      "key": "Quit",
+      "value": "Quit"
+    },
+    {
+      "key": "Continue",
+      "value": "Continue"
+    },
+    {
+      "key": "Close",
+      "value": "Close"
+    },
+    {
+      "key": "Save",
+      "value": "Save"
+    },
+    {
+      "key": "Edit Profile",
+      "value": "Edit Profile"
+    },
+    {
+      "key": "Choose Avatar:",
+      "value": "Choose Avatar:"
+    },
+    {
+      "key": "Enter Name",
+      "value": "Enter Name"
+    },
+    {
+      "key": "Enter your new name:",
+      "value": "Enter your new name:"
+    },
+    {
+      "key": "No Ads",
+      "value": "No Ads"
+    },
+    {
+      "key": "Level {0}",
+      "value": "Level {0}"
+    },
+    {
+      "key": "lvl {0}",
+      "value": "lvl {0}"
+    },
+    {
+      "key": "Lv. {0}",
+      "value": "Lv. {0}"
+    },
+    {
+      "key": "Play",
+      "value": "Play"
+    },
+    {
+      "key": "Play · {0}",
+      "value": "Play · {0}"
+    },
+    {
+      "key": "ŞİMDİ · {0}",
+      "value": "NOW · {0}"
+    },
+    {
+      "key": "Max",
+      "value": "Max"
+    },
+    {
+      "key": "5  Max",
+      "value": "5  Max"
+    },
+    {
+      "key": "Hard",
+      "value": "Hard"
+    },
+    {
+      "key": "Very Hard",
+      "value": "Very Hard"
+    },
+    {
+      "key": "Sweet",
+      "value": "Sweet"
+    },
+    {
+      "key": "Neat",
+      "value": "Neat"
+    },
+    {
+      "key": "Level Completed!",
+      "value": "Level Completed!"
+    },
+    {
+      "key": "Level Failed!",
+      "value": "Level Failed!"
+    },
+    {
+      "key": "Try Again",
+      "value": "Try Again"
+    },
+    {
+      "key": "No Lives",
+      "value": "No Lives"
+    },
+    {
+      "key": "Out of Space!",
+      "value": "Out of Space!"
+    },
+    {
+      "key": "Play On · 900",
+      "value": "Play On · 900"
+    },
+    {
+      "key": "Leave Level?",
+      "value": "Leave Level?"
+    },
+    {
+      "key": "Tunnels Unlocked!",
+      "value": "Tunnels Unlocked!"
+    },
+    {
+      "key": "Extra Space!",
+      "value": "Extra Space!"
+    },
+    {
+      "key": "New Booster · Level {0}",
+      "value": "New Booster · Level {0}"
+    },
+    {
+      "key": "Magnet",
+      "value": "Magnet"
+    },
+    {
+      "key": "Shuffle",
+      "value": "Shuffle"
+    },
+    {
+      "key": "Clean Up",
+      "value": "Clean Up"
+    },
+    {
+      "key": "Magnet Unlocked!",
+      "value": "Magnet Unlocked!"
+    },
+    {
+      "key": "Shuffle Unlocked!",
+      "value": "Shuffle Unlocked!"
+    },
+    {
+      "key": "Clean Up Unlocked!",
+      "value": "Clean Up Unlocked!"
+    },
+    {
+      "key": "Try It · Free",
+      "value": "Try It · Free"
+    },
+    {
+      "key": "Get ×3\n1.800 coins",
+      "value": "Get ×3\n1,800 coins"
+    },
+    {
+      "key": "No purchases to restore in this preview.",
+      "value": "No purchases to restore in this preview."
+    },
+    {
+      "key": "Önce kutuya ulaşan boş bir yol aç.",
+      "value": "Open an empty path to the box first."
+    },
+    {
+      "key": "Bant dolu! Renkleri eşleştir veya yeniden dene.",
+      "value": "Belt full! Match colours or try again."
+    },
+    {
+      "key": "Yeterli altın yok",
+      "value": "Not enough coins"
+    },
+    {
+      "key": "Önce bilyeleri aç.",
+      "value": "Release some marbles first."
+    },
+    {
+      "key": "Bölüm {0} ile açılır",
+      "value": "Unlocks at level {0}"
+    },
+    {
+      "key": "Mıknatıs iptal edildi",
+      "value": "Magnet cancelled"
+    },
+    {
+      "key": "Mıknatıs: bir kutu seç · tekrar dokunarak iptal et",
+      "value": "Magnet: select a box · tap again to cancel"
+    },
+    {
+      "key": "Karıştırmak için iki açık kutu gerekli.",
+      "value": "Two open boxes are needed to shuffle."
+    },
+    {
+      "key": "Ekrandaki herhangi bir kutuyu seç.\nBilyeleri uygun tepsilere çekilir.",
+      "value": "Select any box on the screen.\nIts marbles move to matching trays."
+    },
+    {
+      "key": "Öndeki açık kutuların yerlerini\nkarıştırır; renk sayısı korunur.",
+      "value": "Shuffle the open boxes at the front.\nColour totals stay the same."
+    },
+    {
+      "key": "Bantta ve haznede bekleyen bilyeleri\nuygun tepsilere doğru toplar.",
+      "value": "Collect waiting marbles from the belt\nand funnel into matching trays."
+    },
+    {
+      "key": "Bu özellik {0}. bölümde açılır.",
+      "value": "This feature unlocks at level {0}."
+    },
+    {
+      "key": "Bekleyen bilyeleri topla,\noynamaya devam et.",
+      "value": "Clear waiting marbles\nand keep playing."
+    },
+    {
+      "key": "Bölümden çıkarsan bir can kaybedersin.",
+      "value": "Leaving this level costs one life."
+    },
+    {
+      "key": "Yeni can: {0}\nCanlar 30 dakikada bir yenilenir.",
+      "value": "Next life: {0}\nLives refill every 30 minutes."
+    },
+    {
+      "key": "{0} can  ·  {1}",
+      "value": "{0} lives  ·  {1}"
+    },
+    {
+      "key": "Bölümler arasında kesintisiz oyna.\nBu sürümde satın alma önizlemesidir.",
+      "value": "Play without breaks between levels.\nPurchases are previews in this version."
+    },
+    {
+      "key": "TEKRAR DENE",
+      "value": "TRY AGAIN"
+    },
+    {
+      "key": "Bu bölümün ilerlemesi sıfırlanacak.",
+      "value": "Progress in this level will reset."
+    },
+    {
+      "key": "YENİDEN BAŞLA",
+      "value": "RESTART"
+    },
+    {
+      "key": "VAZGEÇ",
+      "value": "CANCEL"
+    },
+    {
+      "key": "NASIL OYNANIR?",
+      "value": "HOW TO PLAY"
+    },
+    {
+      "key": "HADİ OYNAYALIM",
+      "value": "LET’S PLAY"
+    },
+    {
+      "key": "GÜNLÜK GÖREV",
+      "value": "DAILY QUEST"
+    },
+    {
+      "key": "250 ALTINI AL",
+      "value": "CLAIM 250 COINS"
+    },
+    {
+      "key": "OYUNA DÖN",
+      "value": "BACK TO GAME"
+    },
+    {
+      "key": "3 bölüm tamamla\n\n{0} / 3   ·   Ödül: 250 altın",
+      "value": "Complete 3 levels\n\n{0} / 3   ·   Reward: 250 coins"
+    },
+    {
+      "key": "Prototip mağaza\nGerçek ödeme alınmaz.",
+      "value": "Preview shop\nNo real payment is taken."
+    },
+    {
+      "key": "TAMAM",
+      "value": "OK"
+    },
+    {
+      "key": "Altın",
+      "value": "Coins"
+    },
+    {
+      "key": "Starter Pack",
+      "value": "Starter Pack"
+    },
+    {
+      "key": "Pocket Bundle",
+      "value": "Pocket Bundle"
+    },
+    {
+      "key": "Small Bundle",
+      "value": "Small Bundle"
+    },
+    {
+      "key": "Large Bundle",
+      "value": "Large Bundle"
+    },
+    {
+      "key": "Extra Large Bundle",
+      "value": "Extra Large Bundle"
+    },
+    {
+      "key": "Bundles",
+      "value": "Bundles"
+    },
+    {
+      "key": "Coin Packs",
+      "value": "Coin Packs"
+    },
+    {
+      "key": "Remove Ads",
+      "value": "Remove Ads"
+    },
+    {
+      "key": "Popular",
+      "value": "Popular"
+    },
+    {
+      "key": "30m",
+      "value": "30m"
+    },
+    {
+      "key": "1h",
+      "value": "1h"
+    },
+    {
+      "key": "3h",
+      "value": "3h"
+    },
+    {
+      "key": "6h",
+      "value": "6h"
+    },
+    {
+      "key": "1. En alttaki kutulardan birine dokun.\n\n2. Dokuz bilye banda yuvarlanır.\n\n3. Bilyeler aynı renkteki tepsiye dolar.\n\n4. Tepsileri bitir, bölümü tamamla!\n\nBilyeleri uygun tepsilere ulaştır.",
+      "value": "1. Tap an accessible box.\n\n2. Nine marbles roll onto the belt.\n\n3. Marbles fill trays of the same colour.\n\n4. Clear every tray to finish the level!\n\nOpen paths to reach more boxes."
+    },
+    {
+      "key": "Big Bundle",
+      "value": "Big Bundle"
+    },
+    {
+      "key": "2h",
+      "value": "2h"
+    },
+    {
+      "key": "4h",
+      "value": "4h"
+    },
+    {
+      "key": "{0} coins",
+      "value": "{0} coins"
+    },
+    {
+      "key": "Boosters",
+      "value": "Boosters"
+    },
+    {
+      "key": "Earn coins by completing levels.",
+      "value": "Earn coins by completing levels."
+    }
+  ]
+}

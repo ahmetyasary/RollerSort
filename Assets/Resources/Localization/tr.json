@@ -1,0 +1,396 @@
+{
+  "entries": [
+    {
+      "key": "Settings",
+      "value": "Ayarlar"
+    },
+    {
+      "key": "SOUND",
+      "value": "SES"
+    },
+    {
+      "key": "HAPTICS",
+      "value": "TİTREŞİM"
+    },
+    {
+      "key": "Restore Purchases",
+      "value": "Satın Alımları Geri Yükle"
+    },
+    {
+      "key": "Help & Support",
+      "value": "Yardım ve Destek"
+    },
+    {
+      "key": "Privacy Policy",
+      "value": "Gizlilik Politikası"
+    },
+    {
+      "key": "Daily Quest",
+      "value": "Günlük Görev"
+    },
+    {
+      "key": "Journey",
+      "value": "Bölüm Haritası"
+    },
+    {
+      "key": "Quit",
+      "value": "Çıkış"
+    },
+    {
+      "key": "Continue",
+      "value": "Devam"
+    },
+    {
+      "key": "Close",
+      "value": "Kapat"
+    },
+    {
+      "key": "Save",
+      "value": "Kaydet"
+    },
+    {
+      "key": "Edit Profile",
+      "value": "Profili Düzenle"
+    },
+    {
+      "key": "Choose Avatar:",
+      "value": "Avatar Seç:"
+    },
+    {
+      "key": "Enter Name",
+      "value": "İsim Gir"
+    },
+    {
+      "key": "Enter your new name:",
+      "value": "Yeni adını yaz:"
+    },
+    {
+      "key": "No Ads",
+      "value": "Reklamsız"
+    },
+    {
+      "key": "Level {0}",
+      "value": "Bölüm {0}"
+    },
+    {
+      "key": "lvl {0}",
+      "value": "Böl. {0}"
+    },
+    {
+      "key": "Lv. {0}",
+      "value": "Böl. {0}"
+    },
+    {
+      "key": "Play",
+      "value": "Oyna"
+    },
+    {
+      "key": "Play · {0}",
+      "value": "Oyna · {0}"
+    },
+    {
+      "key": "ŞİMDİ · {0}",
+      "value": "ŞİMDİ · {0}"
+    },
+    {
+      "key": "Max",
+      "value": "Tam"
+    },
+    {
+      "key": "5  Max",
+      "value": "5  Tam"
+    },
+    {
+      "key": "Hard",
+      "value": "Zor"
+    },
+    {
+      "key": "Very Hard",
+      "value": "Çok Zor"
+    },
+    {
+      "key": "Sweet",
+      "value": "Süper"
+    },
+    {
+      "key": "Neat",
+      "value": "Harika"
+    },
+    {
+      "key": "Level Completed!",
+      "value": "Bölüm Tamamlandı!"
+    },
+    {
+      "key": "Level Failed!",
+      "value": "Bölüm Başarısız!"
+    },
+    {
+      "key": "Try Again",
+      "value": "Tekrar Dene"
+    },
+    {
+      "key": "No Lives",
+      "value": "Can Kalmadı"
+    },
+    {
+      "key": "Out of Space!",
+      "value": "Yer Kalmadı!"
+    },
+    {
+      "key": "Play On · 900",
+      "value": "Devam Et · 900"
+    },
+    {
+      "key": "Leave Level?",
+      "value": "Bölümden Çık?"
+    },
+    {
+      "key": "Tunnels Unlocked!",
+      "value": "Tüneller Açıldı!"
+    },
+    {
+      "key": "Extra Space!",
+      "value": "Daha Fazla Yer!"
+    },
+    {
+      "key": "New Booster · Level {0}",
+      "value": "Yeni Güç · Bölüm {0}"
+    },
+    {
+      "key": "Magnet",
+      "value": "Mıknatıs"
+    },
+    {
+      "key": "Shuffle",
+      "value": "Karıştır"
+    },
+    {
+      "key": "Clean Up",
+      "value": "Temizle"
+    },
+    {
+      "key": "Magnet Unlocked!",
+      "value": "Mıknatıs Açıldı!"
+    },
+    {
+      "key": "Shuffle Unlocked!",
+      "value": "Karıştır Açıldı!"
+    },
+    {
+      "key": "Clean Up Unlocked!",
+      "value": "Temizle Açıldı!"
+    },
+    {
+      "key": "Try It · Free",
+      "value": "Ücretsiz Dene"
+    },
+    {
+      "key": "Get ×3\n1.800 coins",
+      "value": "×3 Al\n1.800 altın"
+    },
+    {
+      "key": "No purchases to restore in this preview.",
+      "value": "Bu önizlemede geri yüklenecek satın alım yok."
+    },
+    {
+      "key": "Önce kutuya ulaşan boş bir yol aç.",
+      "value": "Önce kutuya ulaşan boş bir yol aç."
+    },
+    {
+      "key": "Bant dolu! Renkleri eşleştir veya yeniden dene.",
+      "value": "Bant dolu! Renkleri eşleştir veya yeniden dene."
+    },
+    {
+      "key": "Yeterli altın yok",
+      "value": "Yeterli altın yok"
+    },
+    {
+      "key": "Önce bilyeleri aç.",
+      "value": "Önce bilyeleri aç."
+    },
+    {
+      "key": "Bölüm {0} ile açılır",
+      "value": "Bölüm {0} ile açılır"
+    },
+    {
+      "key": "Mıknatıs iptal edildi",
+      "value": "Mıknatıs iptal edildi"
+    },
+    {
+      "key": "Mıknatıs: bir kutu seç · tekrar dokunarak iptal et",
+      "value": "Mıknatıs: bir kutu seç · tekrar dokunarak iptal et"
+    },
+    {
+      "key": "Karıştırmak için iki açık kutu gerekli.",
+      "value": "Karıştırmak için iki açık kutu gerekli."
+    },
+    {
+      "key": "Ekrandaki herhangi bir kutuyu seç.\nBilyeleri uygun tepsilere çekilir.",
+      "value": "Ekrandaki herhangi bir kutuyu seç.\nBilyeleri uygun tepsilere çekilir."
+    },
+    {
+      "key": "Öndeki açık kutuların yerlerini\nkarıştırır; renk sayısı korunur.",
+      "value": "Öndeki açık kutuların yerlerini\nkarıştırır; renk sayısı korunur."
+    },
+    {
+      "key": "Bantta ve haznede bekleyen bilyeleri\nuygun tepsilere doğru toplar.",
+      "value": "Bantta ve haznede bekleyen bilyeleri\nuygun tepsilere doğru toplar."
+    },
+    {
+      "key": "Bu özellik {0}. bölümde açılır.",
+      "value": "Bu özellik {0}. bölümde açılır."
+    },
+    {
+      "key": "Bekleyen bilyeleri topla,\noynamaya devam et.",
+      "value": "Bekleyen bilyeleri topla,\noynamaya devam et."
+    },
+    {
+      "key": "Bölümden çıkarsan bir can kaybedersin.",
+      "value": "Bölümden çıkarsan bir can kaybedersin."
+    },
+    {
+      "key": "Yeni can: {0}\nCanlar 30 dakikada bir yenilenir.",
+      "value": "Yeni can: {0}\nCanlar 30 dakikada bir yenilenir."
+    },
+    {
+      "key": "{0} can  ·  {1}",
+      "value": "{0} can  ·  {1}"
+    },
+    {
+      "key": "Bölümler arasında kesintisiz oyna.\nBu sürümde satın alma önizlemesidir.",
+      "value": "Bölümler arasında kesintisiz oyna.\nBu sürümde satın alma önizlemesidir."
+    },
+    {
+      "key": "TEKRAR DENE",
+      "value": "TEKRAR DENE"
+    },
+    {
+      "key": "Bu bölümün ilerlemesi sıfırlanacak.",
+      "value": "Bu bölümün ilerlemesi sıfırlanacak."
+    },
+    {
+      "key": "YENİDEN BAŞLA",
+      "value": "YENİDEN BAŞLA"
+    },
+    {
+      "key": "VAZGEÇ",
+      "value": "VAZGEÇ"
+    },
+    {
+      "key": "NASIL OYNANIR?",
+      "value": "NASIL OYNANIR?"
+    },
+    {
+      "key": "HADİ OYNAYALIM",
+      "value": "HADİ OYNAYALIM"
+    },
+    {
+      "key": "GÜNLÜK GÖREV",
+      "value": "GÜNLÜK GÖREV"
+    },
+    {
+      "key": "250 ALTINI AL",
+      "value": "250 ALTINI AL"
+    },
+    {
+      "key": "OYUNA DÖN",
+      "value": "OYUNA DÖN"
+    },
+    {
+      "key": "3 bölüm tamamla\n\n{0} / 3   ·   Ödül: 250 altın",
+      "value": "3 bölüm tamamla\n\n{0} / 3   ·   Ödül: 250 altın"
+    },
+    {
+      "key": "Prototip mağaza\nGerçek ödeme alınmaz.",
+      "value": "Prototip mağaza\nGerçek ödeme alınmaz."
+    },
+    {
+      "key": "TAMAM",
+      "value": "TAMAM"
+    },
+    {
+      "key": "Altın",
+      "value": "Altın"
+    },
+    {
+      "key": "Starter Pack",
+      "value": "Başlangıç Paketi"
+    },
+    {
+      "key": "Pocket Bundle",
+      "value": "Cep Paketi"
+    },
+    {
+      "key": "Small Bundle",
+      "value": "Küçük Paket"
+    },
+    {
+      "key": "Large Bundle",
+      "value": "Büyük Paket"
+    },
+    {
+      "key": "Extra Large Bundle",
+      "value": "Çok Büyük Paket"
+    },
+    {
+      "key": "Bundles",
+      "value": "Paketler"
+    },
+    {
+      "key": "Coin Packs",
+      "value": "Altın Paketleri"
+    },
+    {
+      "key": "Remove Ads",
+      "value": "Reklamları Kaldır"
+    },
+    {
+      "key": "Popular",
+      "value": "Popüler"
+    },
+    {
+      "key": "30m",
+      "value": "30 dk"
+    },
+    {
+      "key": "1h",
+      "value": "1 sa"
+    },
+    {
+      "key": "3h",
+      "value": "3 sa"
+    },
+    {
+      "key": "6h",
+      "value": "6 sa"
+    },
+    {
+      "key": "1. En alttaki kutulardan birine dokun.\n\n2. Dokuz bilye banda yuvarlanır.\n\n3. Bilyeler aynı renkteki tepsiye dolar.\n\n4. Tepsileri bitir, bölümü tamamla!\n\nBilyeleri uygun tepsilere ulaştır.",
+      "value": "1. Ulaşılabilen kutulardan birine dokun.\n\n2. Dokuz bilye banda yuvarlanır.\n\n3. Bilyeler aynı renkteki tepsiye dolar.\n\n4. Tepsileri bitir, bölümü tamamla!\n\nBilyeleri uygun tepsilere ulaştır."
+    },
+    {
+      "key": "Big Bundle",
+      "value": "Büyük Paket"
+    },
+    {
+      "key": "2h",
+      "value": "2 sa"
+    },
+    {
+      "key": "4h",
+      "value": "4 sa"
+    },
+    {
+      "key": "{0} coins",
+      "value": "{0} altın"
+    },
+    {
+      "key": "Boosters",
+      "value": "Güçlendiriciler"
+    },
+    {
+      "key": "Earn coins by completing levels.",
+      "value": "Bölümleri tamamlayarak altın kazan."
+    }
+  ]
+}

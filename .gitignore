@@ -1,0 +1,25 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+*.csproj
+*.sln
+.DS_Store
+*.log
+Tools/node_modules/
+[Bb]uild/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+*.pidb
+*.pid
+*.apk
+*.aab
+*.ipa
+*.xcarchive/
+crashlytics-build.properties
+
+# Large videos exceed GitHub's 100 MB file limit
+*.mp4
+*.mov

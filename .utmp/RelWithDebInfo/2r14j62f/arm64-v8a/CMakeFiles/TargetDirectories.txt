@@ -1,0 +1,8 @@
+/Users/ahmetyasary/MyApps/RollerSort/.utmp/RelWithDebInfo/2r14j62f/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/ahmetyasary/MyApps/RollerSort/.utmp/RelWithDebInfo/2r14j62f/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/ahmetyasary/MyApps/RollerSort/.utmp/RelWithDebInfo/2r14j62f/arm64-v8a/GameActivity/CMakeFiles/game.dir
+/Users/ahmetyasary/MyApps/RollerSort/.utmp/RelWithDebInfo/2r14j62f/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+/Users/ahmetyasary/MyApps/RollerSort/.utmp/RelWithDebInfo/2r14j62f/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
+/Users/ahmetyasary/MyApps/RollerSort/.utmp/RelWithDebInfo/2r14j62f/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+/Users/ahmetyasary/MyApps/RollerSort/.utmp/RelWithDebInfo/2r14j62f/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+/Users/ahmetyasary/MyApps/RollerSort/.utmp/RelWithDebInfo/2r14j62f/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,16 @@
+{
+    "revision": "layout",
+    "device": "iPhone19,3",
+    "engine": "6000.6.1f1",
+    "frames": 6897,
+    "completedLevels": 2,
+    "retries": 0,
+    "gcCollections": 20,
+    "framesOver25ms": 3,
+    "framesOver33ms": 2,
+    "durationSeconds": 120.006965292,
+    "averageMs": 16.673913955688477,
+    "p95Ms": 16.721336364746094,
+    "p99Ms": 17.033042907714844,
+    "worstMs": 33.37666320800781
+}
